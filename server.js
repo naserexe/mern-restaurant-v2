@@ -4,13 +4,20 @@ const morgan = require('morgan');
 
 const dotenv = require('dotenv');
 
+const connectDB = require('./config/db');
 const errorHandler = require('./middleware/error');
 
 // Route files
 const test = require('./routes/test');
+const ingredient = require('./routes/ingredient');
+const balance = require('./routes/balance');
+
 
 // Load env vars
 dotenv.config({ path: './config/config.env' });
+
+// Database Connection
+connectDB();
 
 const app = express();
 
@@ -23,11 +30,13 @@ if (process.env.NODE_ENV === 'development') {
 
 const PORT = process.env.PORT || 5000;
 
-// Error handler
-app.use(errorHandler);
-
 // Mount routers
 app.use('/api/v2/test', test);
+app.use('/api/v2/ingredient', ingredient);
+app.use('/api/v2/balance', balance);
+
+// Error handler
+app.use(errorHandler);
 
 const server = app.listen(PORT, () => {
   console.log(`Server running in ${process.env.NODE_ENV} on port ${PORT}`);
