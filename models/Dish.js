@@ -4,7 +4,6 @@ const RecipeSchema = mongoose.Schema({
   recipe_id: {
     type: mongoose.Schema.ObjectId,
     ref: 'ingredients',
-    required: true,
   },
   recipeName: {
     type: String,
