@@ -10,6 +10,7 @@ const errorHandler = require('./middleware/error');
 // Route files
 const test = require('./routes/test');
 const ingredient = require('./routes/ingredient');
+const dish = require('./routes/dish');
 const balance = require('./routes/balance');
 
 
@@ -33,6 +34,7 @@ const PORT = process.env.PORT || 5000;
 // Mount routers
 app.use('/api/v2/test', test);
 app.use('/api/v2/ingredient', ingredient);
+app.use('/api/v2/dish', dish);
 app.use('/api/v2/balance', balance);
 
 // Error handler

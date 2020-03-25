@@ -4,7 +4,6 @@ const RecipeSchema = mongoose.Schema({
   recipe_id: {
     type: mongoose.Schema.ObjectId,
     ref: 'ingredients',
-    required: true,
   },
   recipeName: {
     type: String,
@@ -19,6 +18,7 @@ const RecipeSchema = mongoose.Schema({
 const DishSchema = mongoose.Schema({
   name: {
     type: String,
+    unique: true,
     required: [true, 'Please add dish name'],
   },
 

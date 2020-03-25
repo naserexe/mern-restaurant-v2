@@ -34,7 +34,11 @@ exports.addIngredient = asyncHandler(async (req, res, next) => {
 // @dsc     Buy ingredient that update current stock
 // @access  Private
 exports.buyIngredient = asyncHandler(async (req, res, next) => {
-  const ingredient = await Ingredient.findById(req.params.id);
+  const ingredient = await Ingredient.findByIdAndUpdate(req.params.id, {
+    // 0 will increase amount by one
+    $inc: { currentStock: 0 },
+  },
+  { new: true });
 
   if (!ingredient) {
     return next(new ErrorResponse('Ingredient not found', 404));
@@ -43,21 +47,18 @@ exports.buyIngredient = asyncHandler(async (req, res, next) => {
   const { cost } = ingredient;
 
   // Update balance according to ingredient costs
-  const currentBalance = await Balance.findOne();
-  const { _id, balanceAmount } = currentBalance;
-  const newBalance = balanceAmount - cost;
+  const { _id } = await Balance.findOne();
   await Balance.findByIdAndUpdate(
     _id,
     {
-      $set: { balanceAmount: newBalance },
+      $inc: { balanceAmount: -cost },
     },
     // Get latest updated data
     { new: true },
   );
 
   // Increase current stock by 1
-  await ingredient.updateOne({ $set: { currentStock: (ingredient.currentStock += 1) } },
-    { new: true });
+  await ingredient.updateOne({ $set: { currentStock: (ingredient.currentStock += 1) } });
   return res.status(200).json({ success: true, data: ingredient });
 });
 
