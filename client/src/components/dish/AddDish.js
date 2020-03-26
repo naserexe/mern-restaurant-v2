@@ -5,9 +5,9 @@ export const AddDish = () => {
   const dishContext = useContext(DishContext);
 
   const [dishName, setDishName] = useState('');
-  const [sellingPrice, setSellingPrice] = useState(0);
+  const [sellingPrice, setSellingPrice] = useState('');
 
-  const { addDish, error } = dishContext;
+  const { addDish, error, success} = dishContext;
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -15,9 +15,19 @@ export const AddDish = () => {
     addDish({name: dishName, sellingPrice});
 
     // Clear fields
-    setDishName("");
-    setSellingPrice(0)
+    setDishName('');
+    setSellingPrice('');
   }
+
+  const errors = error ? error.map(err => (<div class="alert alert-dismissible alert-danger">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>{err}</strong>
+</div>)) : null;
+
+  const succeeded = success ? (<div class="alert alert-dismissible alert-success">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>Successfully</strong> new dish added
+</div>) : null;
 
   return (
     <div id = "add-dish-modal" className="modal fade" >
@@ -29,19 +39,18 @@ export const AddDish = () => {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-
+          {errors}
+          {succeeded}
           <div className="modal-body">
             <form>
               <div className="form-group">
                 
-                <input type="text" value={dishName} onChange={(e) => setDishName(e.target.value)} className={error ? "form-control is-invalid" : "form-control"} placeholder="Enter Dish name"/>
-                <div class="invalid-feedback">{error ? error[1] : null}</div>
+                <input type="text" value={dishName} onChange={(e) => setDishName(e.target.value)} className= "form-control" placeholder="Enter Dish name"/>
               </div>
 
               <div className="form-group">
               
-                <input type="number" value={sellingPrice} onChange={(e) => setSellingPrice(e.target.value)} className={error ? "form-control is-invalid" : "form-control"}placeholder="Enter selling price"/>
-                <div class="invalid-feedback">{error ? error[0] : null}</div>
+                <input type="number" value={sellingPrice} onChange={(e) => setSellingPrice(e.target.value)} className="form-control" placeholder="Enter selling price"/>
               </div>
             </form>
           </div>
