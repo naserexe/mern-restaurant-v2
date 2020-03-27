@@ -1,7 +1,3 @@
 node_modules
 .vscode
-
-# production
-/build
-
-config.env
+config/config.env
