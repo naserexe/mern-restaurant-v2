@@ -38,7 +38,6 @@ const DishState = props => {
     try {
       const res = await axios.get("/api/v2/dish");
       dispatch({ type: GET_DISHES, payload: res.data });
-      console.log("sdfh")
     } catch (err) {
       dispatch({ type: DISH_ERROR, payload: err.response.msg });
     }
