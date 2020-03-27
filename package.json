@@ -4,13 +4,15 @@
   "description": "Restaurant stock managing app",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "client": "npm start --prefix client",
     "server": "nodemon server.js",
-    "start": "node server.js"
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Abdullah Naser",
   "license": "ISC",
   "dependencies": {
+    "concurrently": "^5.1.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongoose": "^5.9.4",
