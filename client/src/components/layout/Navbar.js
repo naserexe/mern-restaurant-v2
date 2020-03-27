@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Navbar = () => {
+const Navbar = () => {
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -17,7 +17,7 @@ export const Navbar = () => {
             </li>
 
             <li className="nav-item">
-              <a className="nav-link" href="!#add-ingredient-modal">Add Ingredient</a>
+              <a className="modal-trigger nav-link" data-toggle="modal" data-target="#add-ingredient-modal" href="!#">Add Ingredient</a>
             </li>
 
             <li className="nav-item">
@@ -43,3 +43,4 @@ export const Navbar = () => {
     </div>
   )
 }
+export default Navbar;

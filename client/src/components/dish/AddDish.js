@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import DishContext from '../../context/dish/dishContext';
 
-export const AddDish = () => {
+const AddDish = () => {
   const dishContext = useContext(DishContext);
 
   const [dishName, setDishName] = useState('');
@@ -64,3 +64,5 @@ export const AddDish = () => {
     </div>
   )
 }
+
+export  default AddDish;

@@ -5,3 +5,4 @@ export const GET_DISHES = "GET_DISHES";
 export const GET_INGREDIENTS = "GET_INGREDIENTS";
 export const INGREDIENT_ERROR = "INGREDIENT_ERROR";
 export const ADD_INGREDIENT = "ADD_INGREDIENT";
+export const CLEAR_ERROR = "CLEAR_ERROR";

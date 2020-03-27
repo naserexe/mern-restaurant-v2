@@ -1,11 +1,12 @@
 import React, {useContext, useEffect} from 'react';
 import IngredientItem from './IngredientItem'
+import Spinner from '../layout/Spinner'
 
 import IngredientContext from '../../context/ingredient/ingredientContext'
 
-export const Ingredient = () => {
+const Ingredient = () => {
   const ingredientContext = useContext(IngredientContext);
-  const { ingredients, getIngredients } = ingredientContext;
+  const { ingredients, loading, getIngredients } = ingredientContext;
 
   useEffect(() => {
     getIngredients();
@@ -15,6 +16,15 @@ export const Ingredient = () => {
   const ingredientItem = ingredients.map(ingredient => (
     <IngredientItem ingredient={ingredient} key={ingredient._id} />
   ));
+
+  if(ingredients.length === 0 && !loading){
+    return (<h4 className="text-info">Please add dish</h4>);
+  }
+
+  if(loading){
+    return <Spinner/>
+  }
+
 
   return (
     <div>
@@ -35,3 +45,5 @@ export const Ingredient = () => {
     </div>
   )
 }
+
+export default Ingredient;

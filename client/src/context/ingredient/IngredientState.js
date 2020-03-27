@@ -3,7 +3,7 @@ import axios from "axios";
 import IngredientContext from "./ingredientContext";
 import IngredientReducer from "./ingredientReducer";
 
-import { GET_INGREDIENTS, INGREDIENT_ERROR } from '../types'
+import { GET_INGREDIENTS, INGREDIENT_ERROR, SUCCESS_FALSE, ADD_INGREDIENT, CLEAR_ERROR } from '../types'
 
 const DishState = props => {
   const initialState = {
@@ -15,24 +15,27 @@ const DishState = props => {
 
   const [state, dispatch] = useReducer(IngredientReducer, initialState);
   
-  // Add Dish
-  // const addDish = async dish => {
-  //   const config = {
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     }
-  //   };
+  // Add Ingredient
+  const addIngredient = async ingredient => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
 
-  //   try {
-  //     const res = await axios.post("/api/v2/dish", dish, config);
-  //     dispatch({ type: GET_INGREDIENTS, payload: res.data });
-  //     // setTimeout(() => {
-  //     //   dispatch({type: SUCCESS_FALSE})
-  //     // }, 3000);
-  //   } catch (err) {
-  //     dispatch({ type: INGREDIENT_ERROR, payload: err.response.data.error });
-  //   }
-  // }
+    try {
+      const res = await axios.post("/api/v2/ingredient", ingredient, config);
+      dispatch({ type: ADD_INGREDIENT, payload: res.data });
+      setTimeout(() => {
+        dispatch({type: SUCCESS_FALSE})
+      }, 3000);
+    } catch (err) {
+      dispatch({ type: INGREDIENT_ERROR, payload: err.response.data.error });
+      setTimeout(() => {
+        dispatch({type: CLEAR_ERROR})
+      }, 3000)
+    }
+  }
 
    // Get Ingredients
   const getIngredients = async () => {
@@ -48,7 +51,11 @@ const DishState = props => {
     <IngredientContext.Provider
     value={{
       ingredients: state.ingredients,
-      getIngredients
+      loading: state.loading,
+      error: state.error,
+      success: state.success,
+      getIngredients,
+      addIngredient
     }}
     >
     {props.children}
