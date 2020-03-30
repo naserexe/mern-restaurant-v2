@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 
 const morgan = require('morgan');
 
@@ -36,6 +37,14 @@ app.use('/api/v2/test', test);
 app.use('/api/v2/ingredient', ingredient);
 app.use('/api/v2/dish', dish);
 app.use('/api/v2/balance', balance);
+
+// Serve static asset in production
+if (process.env.NODE_ENV === 'production') {
+  // Set static folder
+  app.use(express.static('client/build'));
+
+  app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html')));
+}
 
 // Error handler
 app.use(errorHandler);

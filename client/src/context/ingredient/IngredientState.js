@@ -3,9 +3,17 @@ import axios from "axios";
 import IngredientContext from "./ingredientContext";
 import IngredientReducer from "./ingredientReducer";
 
-import { GET_INGREDIENTS, INGREDIENT_ERROR, SUCCESS_FALSE, ADD_INGREDIENT, CLEAR_ERROR } from '../types'
+import { 
+  GET_INGREDIENTS,
+  INGREDIENT_ERROR,
+  SUCCESS_FALSE,
+  ADD_INGREDIENT,
+  CLEAR_ERROR,
+  DELETE_INGREDIENT,
+  BUY_INGREDIENT,
+} from '../types'
 
-const DishState = props => {
+const IngredientState = props => {
   const initialState = {
     ingredients:[],
     error: null,
@@ -40,12 +48,33 @@ const DishState = props => {
    // Get Ingredients
   const getIngredients = async () => {
     try {
+      
       const res = await axios.get("/api/v2/ingredient");
       dispatch({ type: GET_INGREDIENTS, payload: res.data });
     } catch (err) {
       dispatch({ type: INGREDIENT_ERROR, payload: err.response.msg });
     }
   };
+
+   // Buy ingredient
+  const buyIngredient = async (_id) => {
+    try {
+      const res = await axios.put(`/api/v2/ingredient/${_id}`);
+      dispatch({type: BUY_INGREDIENT, payload: res.data.data});
+    } catch (err) {
+      dispatch({type: INGREDIENT_ERROR, payload: err.response.msg});
+    }
+  }
+
+  // Delete ingredient
+  const deleteIngredient = async (_id) => {
+    try {
+      axios.delete(`/api/v2/ingredient/${_id}`);
+      dispatch({type: DELETE_INGREDIENT, payload: _id});
+    } catch (err) {
+      dispatch({type: INGREDIENT_ERROR, payload: err.response.msg});
+    }
+  }
 
   return (
     <IngredientContext.Provider
@@ -55,7 +84,9 @@ const DishState = props => {
       error: state.error,
       success: state.success,
       getIngredients,
-      addIngredient
+      addIngredient,
+      deleteIngredient,
+      buyIngredient,
     }}
     >
     {props.children}
@@ -63,4 +94,4 @@ const DishState = props => {
   )
 }
 
-export default DishState;
+export default IngredientState;

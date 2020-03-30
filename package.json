@@ -7,7 +7,8 @@
     "start": "node server.js",
     "client": "npm start --prefix client",
     "server": "nodemon server.js",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "Abdullah Naser",
   "license": "ISC",
@@ -15,8 +16,8 @@
     "concurrently": "^5.1.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mongoose": "^5.9.4",
-    "morgan": "^1.9.1"
+    "mongoose": "^5.9.6",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "eslint": "^6.8.0",

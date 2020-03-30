@@ -26,7 +26,7 @@ const Dish = () => {
   }
 
   return (
-    <div>
+    <div className="table-responsive-sm">
       <h4 className="text-info m-3">Dishes</h4>
         <table className='table table-hover border border-info'>
           <thead className="table-dark">

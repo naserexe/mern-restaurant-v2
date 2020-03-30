@@ -18,19 +18,18 @@ const Ingredient = () => {
   ));
 
   if(ingredients.length === 0 && !loading){
-    return (<h4 className="text-info">Please add dish</h4>);
+    return (<h4 className="text-info">Please add ingredient</h4>);
   }
 
   if(loading){
     return <Spinner/>
   }
 
-
   return (
-    <div>
-        <div>
+    <div className="table-responsive-sm">
       <h4 className="text-info m-3">Ingredients</h4>
-      <table className='table table-hover border border-info'>
+        <div className="table-responsive-lg">
+        <table className='table table-hover border border-info'>
         <thead className="table-dark">
           <tr>
             <th>Ingredients</th>

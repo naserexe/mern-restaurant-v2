@@ -2,11 +2,12 @@ import React, { useReducer } from 'react';
 import axios from "axios";
 import DishContext from "./dishContext";
 import DishReducer from "./dishReducer";
-import { ADD_DISH, DISH_ERROR, SUCCESS_FALSE, GET_DISHES } from '../types'
+import { ADD_DISH, DISH_ERROR, SUCCESS_FALSE, GET_DISHES, CLEAR_ERROR, DELETE_DISH, SET_CURRENT_DISH_ID, ADD_RECIPE } from '../types'
 
 const DishState = props => {
   const initialState = {
     dishes:[],
+    currentDish_id:null,
     error: null,
     success: false,
     loading: true,
@@ -30,6 +31,9 @@ const DishState = props => {
       }, 3000);
     } catch (err) {
       dispatch({ type: DISH_ERROR, payload: err.response.data.error });
+      setTimeout(() => {
+        dispatch({type: CLEAR_ERROR});
+      }, 3000)
     }
   }
 
@@ -43,6 +47,45 @@ const DishState = props => {
     }
   };
 
+   // Sell Dish
+  const sellDish = async (_id) => {
+    try {
+      const res = await axios.get("/api/v2/dish");
+      dispatch({ type: GET_DISHES, payload: res.data });
+    } catch (err) {
+      dispatch({ type: DISH_ERROR, payload: err.response.msg });
+    }
+  };
+
+  // Set Current dish _id
+  const setCurrentDish_id = async (dish_id) => {
+    try {
+      dispatch({ type: SET_CURRENT_DISH_ID, payload: dish_id });
+    } catch (err) {
+      dispatch({ type: DISH_ERROR, payload: err });
+      }
+    };
+
+    // Add recipe
+  const addRecipe = async (dish_id, ingredient_id, quantity) => {
+    try {
+      const res = await axios.post(`/api/v2/dish/recipe/${dish_id}/${ingredient_id}`, quantity);
+      dispatch({ type: ADD_RECIPE, payload: res.data.data });
+    } catch (err) {
+      dispatch({ type: DISH_ERROR, payload: err.response.data.error });
+      }
+    };
+
+  // Delete Dish
+  const deleteDish = async (_id) => {
+    try {
+      await axios.delete(`/api/v2/dish/${_id}`);
+      dispatch({ type: DELETE_DISH, payload: _id });
+    } catch (err) {
+      dispatch({ type: DISH_ERROR, payload: err.response.msg });
+    }
+  };
+
   return (
     <DishContext.Provider
     value={{
@@ -50,8 +93,12 @@ const DishState = props => {
       error: state.error,
       success: state.success,
       loading: state.loading,
+      currentDish_id: state.currentDish_id,
       addDish,
       getDishes,
+      deleteDish,
+      setCurrentDish_id,
+      addRecipe,
     }}
     >
     {props.children}

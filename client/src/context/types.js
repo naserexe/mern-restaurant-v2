@@ -1,8 +1,15 @@
 export const ADD_DISH = "ADD_DISH";
+export const ADD_RECIPE = "ADD_RECIPE";
+export const DELETE_DISH = "DELETE_DISH";
 export const DISH_ERROR = "DISH_ERROR";
 export const SUCCESS_FALSE = "SUCCESS_FALSE";
+
 export const GET_DISHES = "GET_DISHES";
+export const SET_CURRENT_DISH_ID = "SET_CURRENT_DISH_ID";
 export const GET_INGREDIENTS = "GET_INGREDIENTS";
 export const INGREDIENT_ERROR = "INGREDIENT_ERROR";
 export const ADD_INGREDIENT = "ADD_INGREDIENT";
 export const CLEAR_ERROR = "CLEAR_ERROR";
+export const DELETE_INGREDIENT = "DELETE_INGREDIENT";
+export const BUY_INGREDIENT = "BUY_INGREDIENT";
+export const SET_LOADING = "SET_LOADING";

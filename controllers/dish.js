@@ -52,7 +52,7 @@ exports.addRecipe = asyncHandler(async (req, res, next) => {
 
   await dish.save();
 
-  return res.status(201).json({ success: true, data: dish });
+  return res.status(200).json({ success: true, data: dish });
 });
 
 
@@ -97,7 +97,6 @@ exports.sellDish = asyncHandler(async (req, res, next) => {
   // Map  function return a promises we need to resolve them first before send response back;
   const ingredient = await Promise.all(promises);
   // const ingredient = await Ingredient.find();
-  console.log('After Ingredient.find()');
   return res.status(200).json({ ingredient, updBalance });
 });
 
