@@ -7,7 +7,6 @@ import {
   DELETE_DISH,
   SET_CURRENT_DISH_ID,
   ADD_RECIPE,
-  SELL_DISH
 } from "../types";
 
 export default (state, action) => {
@@ -22,7 +21,8 @@ export default (state, action) => {
       return {
         ...state,
         dishes: state.dishes.map(dish => 
-          dish._id === action.payload._id ? action.payload : dish)
+          dish._id === action.payload._id ? action.payload : dish),
+        success: true,
       }
     case ADD_DISH:
       return{

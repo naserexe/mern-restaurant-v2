@@ -2,7 +2,17 @@ import React, { useReducer } from 'react';
 import axios from "axios";
 import DishContext from "./dishContext";
 import DishReducer from "./dishReducer";
-import { ADD_DISH, DISH_ERROR, SUCCESS_FALSE, GET_DISHES, CLEAR_ERROR, DELETE_DISH, SET_CURRENT_DISH_ID, ADD_RECIPE, SELL_DISH, GET_INGREDIENTS } from '../types'
+import { 
+  ADD_DISH,
+  DISH_ERROR,
+  SUCCESS_FALSE,
+  GET_DISHES,
+  CLEAR_ERROR,
+  DELETE_DISH,
+  SET_CURRENT_DISH_ID,
+  ADD_RECIPE } 
+  from '../types'
+
 
 const DishState = props => {
   const initialState = {
@@ -50,8 +60,7 @@ const DishState = props => {
    // Sell Dish
   const sellDish = async (_id) => {
     try {
-      const res = await axios.put(`/api/v2/dish/${_id}`);
-      dispatch({ type: GET_INGREDIENTS, payload: res.data });
+      await axios.put(`/api/v2/dish/${_id}`);
     } catch (err) {
       dispatch({ type: DISH_ERROR, payload: err.response.data.error });
     }
@@ -71,6 +80,9 @@ const DishState = props => {
     try {
       const res = await axios.post(`/api/v2/dish/recipe/${dish_id}/${ingredient_id}`, quantity);
       dispatch({ type: ADD_RECIPE, payload: res.data.data });
+      setTimeout(() => {
+        dispatch({type: SUCCESS_FALSE})
+      }, 3000);
     } catch (err) {
       dispatch({ type: DISH_ERROR, payload: err.response.data.error });
       }

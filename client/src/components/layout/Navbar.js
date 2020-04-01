@@ -1,10 +1,11 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 const Navbar = () => {
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a className="navbar-brand" href="!#">MERN Restaurant</a>
+        <Link className="navbar-brand" to="/">MERN Restaurant</Link>
 
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
@@ -13,7 +14,7 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarColor02">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item active">
-              <a className="nav-link" href="!#">Home <span className="sr-only">(current)</span></a>
+              <Link className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
             </li>
 
             <li className="nav-item">
@@ -25,17 +26,17 @@ const Navbar = () => {
             </li>
 
             <li className="nav-item">
-              <a className="nav-link" href="!#">About</a>
+              <Link className="nav-link" to="/about">About</Link>
             </li>
           </ul>
 
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
-              <a className="nav-link" href="!#">Register</a>
+              <Link className="nav-link" to="/register">Register</Link>
             </li>
 
             <li className="nav-item">
-              <a className="nav-link" href="!#">Login</a>
+            <Link className="nav-link" to="/login">Login</Link>
             </li>
           </ul>
         </div>

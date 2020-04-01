@@ -1,6 +1,5 @@
 import React, {useContext} from 'react'
 import IngredientContext from '../../context/ingredient/ingredientContext'
-import Spinner from '../layout/Spinner'
 
 const IngredientItem = ({ingredient}) => {
   const ingredientContext = useContext(IngredientContext);

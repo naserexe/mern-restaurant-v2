@@ -28,7 +28,7 @@ export const AddRecipe = () => {
 
   const succeeded = success ? (<div className="alert alert-dismissible alert-success">
   <button type="button" className="close" data-dismiss="alert">&times;</button>
-  <strong>Successfully</strong> new dish added
+  <strong>Successfully</strong> new recipe added
 </div>) : null;
 
   return (
