@@ -4,9 +4,11 @@ const RecipeSchema = mongoose.Schema({
   recipe_id: {
     type: mongoose.Schema.ObjectId,
     ref: 'ingredients',
+    unique: true,
   },
   recipeName: {
     type: String,
+    unique: true,
     required: [true, 'Please add a recipe name'],
   },
   quantity: {

@@ -1,14 +1,20 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import IngredientContext from '../../context/ingredient/ingredientContext'
+import Spinner from '../layout/Spinner'
 
 const IngredientItem = ({ingredient}) => {
-  const { name, currentStock, cost} = ingredient;
+  const ingredientContext = useContext(IngredientContext);
+
+  const { deleteIngredient, buyIngredient } = ingredientContext;
+
+  const { name, currentStock, cost, _id} = ingredient;
 
   const buy = () => {
-    console.log(ingredient._id)
+    buyIngredient(_id)
   }
 
   const deleteHandler = () => {
-    console.log(ingredient._id)
+    deleteIngredient(_id);
   }
   return (
     <tr className="table-dark">

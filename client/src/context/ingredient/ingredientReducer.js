@@ -1,4 +1,13 @@
-import {GET_INGREDIENTS, INGREDIENT_ERROR, SUCCESS_FALSE, ADD_INGREDIENT, CLEAR_ERROR} from '../types'
+import {
+  GET_INGREDIENTS,
+  INGREDIENT_ERROR,
+  SUCCESS_FALSE,
+  ADD_INGREDIENT,
+  CLEAR_ERROR,
+  DELETE_INGREDIENT,
+  BUY_INGREDIENT,
+  SET_LOADING,
+} from '../types'
 
 export default (state, action) => {
   switch(action.type){
@@ -15,6 +24,19 @@ export default (state, action) => {
         error: null,
         success:true
       }
+    case BUY_INGREDIENT:
+      return {
+        ...state,
+        ingredients: state.ingredients.map(ingredient => 
+          ingredient._id === action.payload._id ? action.payload : ingredient),
+      };
+    case DELETE_INGREDIENT:
+      return{
+        ...state,
+        ingredients: state.ingredients.filter(ingredient => 
+          ingredient._id !== action.payload
+        )
+      }
     case SUCCESS_FALSE:
       return {
         ...state,
@@ -29,6 +51,11 @@ export default (state, action) => {
       return{
         ...state,
         error: null
+      }
+    case SET_LOADING:
+      return {
+        ...state,
+        loading: true
       }
     default:
       return state;

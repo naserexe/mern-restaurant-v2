@@ -1,23 +1,34 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import DishContext from '../../context/dish/dishContext'
+import IngredientContext from '../../context/ingredient/ingredientContext'
 
 const DishItem = ({dish}) => {
-  const addRecipe = () => {
-    console.log('Todo AddRecipe')
+  const dishContext = useContext(DishContext);
+  const ingredientContext = useContext(IngredientContext);
+
+  const { deleteDish, sellDish, setCurrentDish_id } = dishContext;
+  const { getIngredients } = ingredientContext;
+
+  const {name, recipe, _id} = dish;
+
+  const setDish_id = () => {
+    setCurrentDish_id(_id);
   }
 
   const handleDelete = () => {
-    console.log(`Todo Delete ${dish._id}`)
+    deleteDish(_id)
   }
 
-  const handleSell = () => {
-    console.log('Todo Sell')
+  const handleSell = async () => {
+    await sellDish(_id);
+    getIngredients();
   }
 
   return (
     <tr className="table-dark">
-    <td>{dish.name}</td>
+    <td>{name}</td>
     <td>
-      {dish.recipe.map(r => {
+      {recipe.map(r => {
         return (
           <p key={r._id}>
             {r.recipeName}({r.quantity}),
@@ -26,24 +37,20 @@ const DishItem = ({dish}) => {
       })}
     </td>
     <td>
+
       {" "}
-      <a
-        onClick={addRecipe}
-        href='#add-recipe-modal'
-        className='modal-trigger text-info'
-      >
-        Add Recipe
-      </a>
+      <a className="modal-trigger nav-link" onClick={setDish_id} data-toggle="modal" data-target="#add-recipe-modal" href="!#">Add Ingredient</a>
+
     </td>
     <td className="text-success">${dish.sellingPrice}</td>
     <td>
       {" "}
-      <button
+      {recipe.length === 0 ? <p>Add recipe before sell</p>: <button
         onClick={handleSell}
         className='btn btn-outline-success btn-sm m-2'
       >
         SELL
-      </button>
+      </button>}
       <button
         onClick={handleDelete}
         className='btn btn-outline-danger btn-sm'
