@@ -1,5 +1,6 @@
 export const ADD_DISH = "ADD_DISH";
 export const ADD_RECIPE = "ADD_RECIPE";
+export const SELL_DISH = "SELL_DISH";
 export const DELETE_DISH = "DELETE_DISH";
 export const DISH_ERROR = "DISH_ERROR";
 export const SUCCESS_FALSE = "SUCCESS_FALSE";

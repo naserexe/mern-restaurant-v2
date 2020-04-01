@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import axios from "axios";
 import DishContext from "./dishContext";
 import DishReducer from "./dishReducer";
-import { ADD_DISH, DISH_ERROR, SUCCESS_FALSE, GET_DISHES, CLEAR_ERROR, DELETE_DISH, SET_CURRENT_DISH_ID, ADD_RECIPE } from '../types'
+import { ADD_DISH, DISH_ERROR, SUCCESS_FALSE, GET_DISHES, CLEAR_ERROR, DELETE_DISH, SET_CURRENT_DISH_ID, ADD_RECIPE, SELL_DISH, GET_INGREDIENTS } from '../types'
 
 const DishState = props => {
   const initialState = {
@@ -50,10 +50,10 @@ const DishState = props => {
    // Sell Dish
   const sellDish = async (_id) => {
     try {
-      const res = await axios.get("/api/v2/dish");
-      dispatch({ type: GET_DISHES, payload: res.data });
+      const res = await axios.put(`/api/v2/dish/${_id}`);
+      dispatch({ type: GET_INGREDIENTS, payload: res.data });
     } catch (err) {
-      dispatch({ type: DISH_ERROR, payload: err.response.msg });
+      dispatch({ type: DISH_ERROR, payload: err.response.data.error });
     }
   };
 
@@ -99,6 +99,7 @@ const DishState = props => {
       deleteDish,
       setCurrentDish_id,
       addRecipe,
+      sellDish
     }}
     >
     {props.children}

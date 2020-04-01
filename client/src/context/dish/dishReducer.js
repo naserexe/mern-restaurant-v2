@@ -6,7 +6,8 @@ import {
   CLEAR_ERROR,
   DELETE_DISH,
   SET_CURRENT_DISH_ID,
-  ADD_RECIPE
+  ADD_RECIPE,
+  SELL_DISH
 } from "../types";
 
 export default (state, action) => {

@@ -48,7 +48,6 @@ const IngredientState = props => {
    // Get Ingredients
   const getIngredients = async () => {
     try {
-      
       const res = await axios.get("/api/v2/ingredient");
       dispatch({ type: GET_INGREDIENTS, payload: res.data });
     } catch (err) {
