@@ -10,7 +10,8 @@ import {
   CLEAR_ERROR,
   DELETE_DISH,
   SET_CURRENT_DISH_ID,
-  ADD_RECIPE } 
+  ADD_RECIPE,
+  GET_BALANCE} 
   from '../types'
 
 
@@ -21,9 +22,20 @@ const DishState = props => {
     error: null,
     success: false,
     loading: true,
+    balance: [],
   }
 
   const [state, dispatch] = useReducer(DishReducer, initialState);
+
+  // Get Balance
+  const getBalance = async () => {
+    try {
+      const res = await axios.get('/api/v2/balance');
+      dispatch({type: GET_BALANCE, payload: res.data.data})
+    } catch (err) {
+      
+    }
+  };
   
   // Add Dish
   const addDish = async dish => {
@@ -60,7 +72,9 @@ const DishState = props => {
    // Sell Dish
   const sellDish = async (_id) => {
     try {
-      await axios.put(`/api/v2/dish/${_id}`);
+      const res = await axios.put(`/api/v2/dish/${_id}`);
+      console.log(res.data)
+      dispatch({type: GET_BALANCE, payload: res.data.updBalance})
     } catch (err) {
       dispatch({ type: DISH_ERROR, payload: err.response.data.error });
     }
@@ -102,6 +116,7 @@ const DishState = props => {
     <DishContext.Provider
     value={{
       dishes: state.dishes,
+      balance: state.balance,
       error: state.error,
       success: state.success,
       loading: state.loading,
@@ -111,7 +126,8 @@ const DishState = props => {
       deleteDish,
       setCurrentDish_id,
       addRecipe,
-      sellDish
+      sellDish,
+      getBalance
     }}
     >
     {props.children}

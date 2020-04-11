@@ -14,3 +14,4 @@ export const CLEAR_ERROR = "CLEAR_ERROR";
 export const DELETE_INGREDIENT = "DELETE_INGREDIENT";
 export const BUY_INGREDIENT = "BUY_INGREDIENT";
 export const SET_LOADING = "SET_LOADING";
+export const GET_BALANCE = "GET_BALANCE";

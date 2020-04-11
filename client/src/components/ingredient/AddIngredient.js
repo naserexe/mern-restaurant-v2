@@ -19,13 +19,13 @@ const AddIngredient = () => {
     setCost('');
   }
 
-  const errors = error ? error.map(err => (<div class="alert alert-dismissible alert-danger">
-  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  const errors = error ? error.map(err => (<div className="alert alert-dismissible alert-danger">
+  <button type="button" className="close" data-dismiss="alert">&times;</button>
   <strong>{err}</strong>
 </div>)) : null;
 
-  const succeeded = success ? (<div class="alert alert-dismissible alert-success">
-  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  const succeeded = success ? (<div className="alert alert-dismissible alert-success">
+  <button type="button" className="close" data-dismiss="alert">&times;</button>
   <strong>Successfully</strong> new ingredient added
 </div>) : null;
 

@@ -1,15 +1,19 @@
 import React, {useContext} from 'react'
 import IngredientContext from '../../context/ingredient/ingredientContext'
+import DishContext from '../../context/dish/dishContext'
 
 const IngredientItem = ({ingredient}) => {
   const ingredientContext = useContext(IngredientContext);
+  const dishContext = useContext(DishContext);
 
   const { deleteIngredient, buyIngredient } = ingredientContext;
+  const { getBalance } = dishContext;
 
   const { name, currentStock, cost, _id} = ingredient;
 
-  const buy = () => {
-    buyIngredient(_id)
+  const buy = async () => {
+    await buyIngredient(_id);
+    getBalance();
   }
 
   const deleteHandler = () => {

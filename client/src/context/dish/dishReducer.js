@@ -7,10 +7,16 @@ import {
   DELETE_DISH,
   SET_CURRENT_DISH_ID,
   ADD_RECIPE,
+  GET_BALANCE
 } from "../types";
 
 export default (state, action) => {
   switch(action.type){
+    case GET_BALANCE:
+      return {
+        ...state,
+        balance: action.payload
+      }
     case GET_DISHES:
       return {
         ...state,
